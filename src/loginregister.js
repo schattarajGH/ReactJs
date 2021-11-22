@@ -40,7 +40,7 @@ export default function Loginregister(){
       setError(result['data']['username']);
       let tokendata = JSON.stringify(result['data']);
       setLogedin(true);
-      console.log(result);
+      // console.log(result);
       localStorage.setItem("token",tokendata);   
     }
     else{

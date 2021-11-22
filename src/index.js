@@ -20,8 +20,20 @@ import Blog from './blog';
 import Loginregister from './loginregister';
 import Admin from './Admin';
 import Logout from './Logout';
+import {HashRouter} from "react-router-dom";
 ReactDOM.render(
-  <React.StrictMode>
+  <HashRouter>
+   <Routes>
+  <Route path="/" element={<Nav/>}>
+    <Route path="/" element={<Homepage/>}></Route>
+    <Route path="/aboutus" element={<About/>}></Route>
+    <Route path="/contactus" element={<Contact/>}></Route>
+    <Route path="/blog" element={<Blog/>}></Route>
+    <Route path="/login" element={<Loginregister/>}></Route>
+    <Route path="/admin" element={<Admin/>}></Route>
+    <Route path="/logout" element={<Logout/>}></Route>
+  </Route>
+</Routes>
    {/* <BrowserRouter>
    <Routes>
   <Route path="/" element={<App />}>
@@ -40,7 +52,7 @@ ReactDOM.render(
   </Route>
 </Routes>
   </BrowserRouter>, */}
-  <BrowserRouter>
+  {/* <BrowserRouter>
   <Routes>
   <Route path="/" element={<Nav/>}>
     <Route path="/" element={<Homepage/>}></Route>
@@ -52,8 +64,8 @@ ReactDOM.render(
     <Route path="/logout" element={<Logout/>}></Route>
   </Route>
 </Routes>
-  </BrowserRouter>
-  </React.StrictMode>,
+  </BrowserRouter> */}
+  </HashRouter>,
   document.getElementById('root')
 );
 

@@ -5,7 +5,7 @@ export default function Admin(){
  const token = localStorage.getItem("token");
  const [checkToken,setcheckToken] = useState(token);
 //  const [fetcha,setfetcha] = useState(false);
-//  const [result,setresult] = useState(null);
+ const [result,setresult] = useState(null);
  if(token==null){
     return <Navigate to="/login"></Navigate>;
  }
@@ -17,25 +17,25 @@ export default function Admin(){
      }
  }
 // eslint-disable-next-line react-hooks/rules-of-hooks
-// useEffect(() => {
-//     fetch("https://allnewsfeed.000webhostapp.com/singlepage/userdata.php",{
-//         method:"POST",
-//         body:token,
-//         header:{
-//             'Content-Type':"application/json",
-//         }
-//       }
-//       ).then(function(response){
-//         return response.json();
-//       }).then(function(result){
-//          console.log(result);
-//         //  setresult(result);
-//         //  setfetcha(true);
-//         // let r =JSON.parse(token)
-//         }
-//       )
-//         }
-//         ,[]);
+useEffect(() => {
+    fetch("https://allnewsfeed.000webhostapp.com/singlepage/userdata.php",{
+        method:"POST",
+        body:token,
+        header:{
+            'Content-Type':"application/json",
+        }
+      }
+      ).then(function(response){
+        return response.json();
+      }).then(function(result){
+         console.log(result);
+         setresult(result);
+        //  setfetcha(true);
+        // let r =JSON.parse(token)
+        }
+      )
+        }
+        ,[]);
     return(
         <>
         <h1>This is admin page</h1>
