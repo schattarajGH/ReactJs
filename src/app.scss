@@ -968,6 +968,7 @@ $fborder:#383838;
 .form-control{background-color: transparent;
   border-radius: $radius;
   height: 40px;
+  color: $white;
 &:focus{
   box-shadow: none;
   border-color: $primary;

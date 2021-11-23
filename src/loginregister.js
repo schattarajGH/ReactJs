@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {Redirect,Route} from "react-router-dom";
 import {useState} from "react";
-import { Target } from "react-feather";
+import { Repeat, Target } from "react-feather";
 import { Navigate} from 'react-router-dom';
 export default function Loginregister(){
     let form = document.getElementById("formsection");
@@ -11,7 +11,14 @@ export default function Loginregister(){
         email:"",
         pass:""
     });
+    const [RegisterData, setRegisterData] = useState({
+     name:"",
+     email:"",
+     pass:"",
+     passRepeat:""
+  });
     const [Error,setError] = useState(null);
+    const [RegisterError,setRegisterError] = useState("err");
     const[Logedin,setLogedin]=useState(false);
     function login(){
         setActive(false);
@@ -37,6 +44,7 @@ export default function Loginregister(){
   }).then(function(result){
     if(result['status']){
       setError(result['data']['username']);
+      console.log(result);
       let tokendata = JSON.stringify(result['data']);
       setLogedin(true);
       // console.log(result);
@@ -49,9 +57,46 @@ export default function Loginregister(){
     // console.log(myjson);
   });
         };
+          //insert data for Register
+          function registerinput(e){
+            RegisterData[e.target.name]=e.target.value;
+          }
+          ////////Register User
+          function registersubmit(e){
+            e.preventDefault();
+            let registerjson = JSON.stringify(RegisterData);
+            fetch("https://allnewsfeed.000webhostapp.com/singlepage/add.php",{
+              method:"POST",
+              body:registerjson,
+              header:{
+                'Content-Type':"application/json",
+              },
+            }
+            ).then(function(response){
+              return response.json();
+            }).then(function(result){
+              if(result['status']){
+                // setError(result['data']['username']);
+                // let tokendata = JSON.stringify(result['data']);
+                // setLogedin(true);
+                console.log(result);
+                // localStorage.setItem("token",tokendata);   
+              // console.log(result);
+              }
+              else{
+                // console.log(result);
+                let myjsons=JSON.parse(result)
+                console.log(myjsons);
+                setRegisterError(result['error']);
+              }
+              // console.log(myjson);
+            });
+            // console.log(RegisterData);
+          }
         if(Logedin){
         return <Navigate to="/admin"></Navigate>;
         }
+      
         const token = localStorage.getItem("token");
         // eslint-disable-next-line eqeqeq
         if(token===null){
@@ -93,25 +138,27 @@ return(
           </form>
     </div>
     <div className="form register">
-        <form>
+        <form onSubmit={(e) =>registersubmit(e)}>
+        <h5>{RegisterError}</h5>
             <div className="form-row">
-                <div className="form-group col-md-6">
+                <div className="form-group col-md-12">
                     <label htmlFor="inputname">Name</label>
-                  <input type="text" className="form-control" placeholder="Morger"/>
+                  <input type="text" className="form-control" placeholder="Morger" onChange={registerinput} name="name"/>
                 </div>
-                <div className="form-group col-md-6">
-                    <label htmlFor="inputname">Last Name</label>
-                  <input type="text" className="form-control" placeholder="Dior"/>
-                </div>
+                
               </div>
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Email address</label>
-              <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="example@gmail.com"/>
+              <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="example@gmail.com" onChange={registerinput} name="email"/>
               
             </div>
             <div className="form-group">
               <label htmlFor="exampleInputPassword1">Password</label>
-              <input type="password" className="form-control" id="exampleInputPassword1" placeholder="*****************"/>
+              <input type="password" className="form-control" placeholder="*****************"  onChange={registerinput} name="pass"/>
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleInputPassword1">Reapeat Password</label>
+              <input type="password" className="form-control" placeholder="*****************" onChange={registerinput} name="passRepeat"/>
             </div>
             <div className="form-group form-check">
               <input type="checkbox" className="form-check-input" id="exampleCheck2"/>
