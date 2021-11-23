@@ -14,7 +14,6 @@ export default function Loginregister(){
     const [Error,setError] = useState(null);
     const[Logedin,setLogedin]=useState(false);
     function login(){
-    console.log(form);
         setActive(false);
     }
     function register(){

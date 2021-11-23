@@ -11,31 +11,32 @@ export default function Admin(){
  }
  function logout(){
      localStorage.removeItem("token");  
-     setcheckToken(null);
-     if(checkToken==null){
-        return <Navigate to="/login"></Navigate>;
-     }
- }
+     console.log("asdas");
+     setcheckToken(null); 
+}
+if(checkToken==null){
+  return <Navigate to="/login"></Navigate>;
+}
 // eslint-disable-next-line react-hooks/rules-of-hooks
-useEffect(() => {
-    fetch("https://allnewsfeed.000webhostapp.com/singlepage/userdata.php",{
-        method:"POST",
-        body:token,
-        header:{
-            'Content-Type':"application/json",
-        }
-      }
-      ).then(function(response){
-        return response.json();
-      }).then(function(result){
-         console.log(result);
-         setresult(result);
-        //  setfetcha(true);
-        // let r =JSON.parse(token)
-        }
-      )
-        }
-        ,[]);
+// useEffect(() => {
+//     fetch("https://allnewsfeed.000webhostapp.com/singlepage/userdata.php",{
+//         method:"POST",
+//         body:token,
+//         header:{
+//             'Content-Type':"application/json",
+//         }
+//       }
+//       ).then(function(response){
+//         return response.json();
+//       }).then(function(result){
+//          console.log(result);
+//         //  setresult(result);
+//         //  setfetcha(true);
+//         // let r =JSON.parse(token)
+//         }
+//       )
+//         }
+//         ,[]);
     return(
         <>
         <h1>This is admin page</h1>
