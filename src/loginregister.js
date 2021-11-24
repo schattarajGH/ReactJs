@@ -64,6 +64,7 @@ export default function Loginregister(){
           ////////Register User
           function registersubmit(e){
             e.preventDefault();
+            // console.log(RegisterData);
             let registerjson = JSON.stringify(RegisterData);
             fetch("https://allnewsfeed.000webhostapp.com/singlepage/add.php",{
               method:"POST",
@@ -85,8 +86,8 @@ export default function Loginregister(){
               }
               else{
                 // console.log(result);
-                let myjsons=JSON.parse(result)
-                console.log(myjsons);
+                // let myjsons=JSON.parse(result)
+                console.log(result);
                 setRegisterError(result['error']);
               }
               // console.log(myjson);
