@@ -1,4 +1,5 @@
 import React from 'react';
+import {useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
@@ -21,10 +22,12 @@ import Loginregister from './loginregister';
 import Admin from './Admin';
 import Logout from './Logout';
 import {HashRouter} from "react-router-dom";
+import NoteState from './NoteState';
 ReactDOM.render(
+  <NoteState>
   <HashRouter>
    <Routes>
-  <Route path="/" element={<Nav/>}>
+  <Route path="/" element={<Nav btn={false}/>}>
     <Route path="/" element={<Homepage/>}></Route>
     <Route path="/aboutus" element={<About/>}></Route>
     <Route path="/contactus" element={<Contact/>}></Route>
@@ -65,7 +68,9 @@ ReactDOM.render(
   </Route>
 </Routes>
   </BrowserRouter> */}
-  </HashRouter>,
+  </HashRouter>
+  </NoteState>
+  ,
   document.getElementById('root')
 );
 

@@ -1,11 +1,16 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Redirect,Route} from "react-router-dom";
-import {useState} from "react";
+import {useState,useContext} from "react";
+import noteContext from './noteContext';
 import { Repeat, Target } from "react-feather";
 import { Navigate} from 'react-router-dom';
-export default function Loginregister(){
+export default function Loginregister(props){
     let form = document.getElementById("formsection");
+    const[CheckToken,setCheckToken]=useState(true);
+    const a = useContext(noteContext);
+     console.log(a);
+    // setCheckToken(false);
     const [Active, setActive] = useState(false);
     const [Data, setData] = useState({
         email:"",
@@ -18,7 +23,7 @@ export default function Loginregister(){
      passRepeat:""
   });
     const [Error,setError] = useState(null);
-    const [RegisterError,setRegisterError] = useState("err");
+    const [RegisterError,setRegisterError] = useState(null);
     const[Logedin,setLogedin]=useState(false);
     function login(){
         setActive(false);
@@ -43,6 +48,7 @@ export default function Loginregister(){
     return response.json();
   }).then(function(result){
     if(result['status']){
+      a.showUpdate();
       setError(result['data']['username']);
       console.log(result);
       let tokendata = JSON.stringify(result['data']);
@@ -60,6 +66,7 @@ export default function Loginregister(){
           //insert data for Register
           function registerinput(e){
             RegisterData[e.target.name]=e.target.value;
+            setRegisterError(null);
           }
           ////////Register User
           function registersubmit(e){
@@ -77,27 +84,20 @@ export default function Loginregister(){
               return response.json();
             }).then(function(result){
               if(result['status']){
-                // setError(result['data']['username']);
-                // let tokendata = JSON.stringify(result['data']);
-                // setLogedin(true);
+                setRegisterError(result['error']);
                 console.log(result);
-                // localStorage.setItem("token",tokendata);   
-              // console.log(result);
+                setCheckToken(true);
               }
               else{
-                // console.log(result);
-                // let myjsons=JSON.parse(result)
                 console.log(result);
                 setRegisterError(result['error']);
-              }
-              // console.log(myjson);
+              }           
             });
-            // console.log(RegisterData);
           }
         if(Logedin){
         return <Navigate to="/admin"></Navigate>;
         }
-      
+    
         const token = localStorage.getItem("token");
         // eslint-disable-next-line eqeqeq
         if(token===null){

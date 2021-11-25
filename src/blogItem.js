@@ -9,11 +9,9 @@ return(
     <div className="card">
     <div className="image">
         <img src={info.imgSrc} alt=""/>
-
          <div className="play">
              <Play/>
          </div>
-        
     </div>
     <div className="text">
         <h3><Link to="#">{info.title}</Link></h3>
